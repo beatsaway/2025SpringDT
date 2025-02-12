@@ -41,6 +41,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
+            cursor: pointer;
         }
 
         .gallery-item:hover {
@@ -58,6 +59,39 @@
             margin-top: 8px;
             text-align: center;
             color: #666;
+        }
+
+        /* Lightbox Styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -127,11 +161,18 @@
             </div>
         </div>
     </div>
+    <!-- Lightbox Pop-up -->
+    <div class="lightbox" id="lightbox">
+        <span class="close-btn" id="close-btn">&times;</span>
+        <img id="lightbox-img" src="" alt="Zoomed Image">
+    </div>
 
     <!-- Masonry Library -->
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <!-- imagesLoaded Library -->
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <script>
-        // Function to shuffle the gallery items
+        // Shuffle the gallery items
         function shuffleGallery() {
             var gallery = document.getElementById('gallery');
             var items = gallery.children;
@@ -164,6 +205,31 @@
         // Re-layout Masonry after images load
         imagesLoaded(gallery, function() {
             masonry.layout();
+        });
+
+        // Lightbox Functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = document.getElementById('close-btn');
+
+        // Open lightbox when an image is clicked
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            img.addEventListener('click', () => {
+                lightbox.classList.add('active');
+                lightboxImg.src = img.src;
+            });
+        });
+
+        // Close lightbox when close button is clicked
+        closeBtn.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        // Close lightbox when clicking outside the image
+        lightbox.addEventListener('click', (e) => {
+            if (e.target !== lightboxImg) {
+                lightbox.classList.remove('active');
+            }
         });
     </script>
 </body>
