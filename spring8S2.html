@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring 8S2 Festive Themes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .gallery-item {
+            width: calc(33.333% - 20px); /* 3 columns by default */
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .image-caption {
+            margin-top: 8px;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery-container">
+        <h1>2025 Spring 8S2 Festive Themes</h1>
+        <div class="gallery" id="gallery">
+            <div class="gallery-item">
+                <img src="spring8S2/filename0.jpg" alt="Spring Image 0">
+                <div class="image-caption">Dina</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2/filename1.jpg" alt="Spring Image 1">
+                <div class="image-caption">Lorena</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2/filename2.jpg" alt="Spring Image 2">
+                <div class="image-caption">Nareece</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2/filename3.jpg" alt="Spring Image 3">
+                <div class="image-caption">Sajid</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2/filename4.jpg" alt="Spring Image 4">
+                <div class="image-caption">Alea</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2/filename5.jpg" alt="Spring Image 5">
+                <div class="image-caption">Artemis</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2/filename6.jpg" alt="Spring Image 6">
+                <div class="image-caption">Aid</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2/filename7.jpg" alt="Spring Image 7">
+                <div class="image-caption">Jazmin</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2/filename8.jpg" alt="Spring Image 8">
+                <div class="image-caption">Saba</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2/filename9.jpg" alt="Spring Image 9">
+                <div class="image-caption">Eva</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2/filename10.jpg" alt="Spring Image 10">
+                <div class="image-caption">Justin</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2/filename11.jpg" alt="Spring Image 11">
+                <div class="image-caption">Jannat</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2/filename12.jpg" alt="Spring Image 12">
+                <div class="image-caption">Pogba</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2/filename13.jpg" alt="Spring Image 13">
+                <div class="image-caption">Victoria</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2/filename14.jpg" alt="Spring Image 14">
+                <div class="image-caption">Patric</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Masonry Library -->
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script>
+        // Function to shuffle the gallery items
+        function shuffleGallery() {
+            var gallery = document.getElementById('gallery');
+            var items = gallery.children;
+            var itemsArray = Array.prototype.slice.call(items);
+
+            // Shuffle the array
+            for (var i = itemsArray.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                [itemsArray[i], itemsArray[j]] = [itemsArray[j], itemsArray[i]];
+            }
+
+            // Append the shuffled items back to the gallery
+            itemsArray.forEach(function(item) {
+                gallery.appendChild(item);
+            });
+        }
+
+        // Shuffle the gallery when the page loads
+        shuffleGallery();
+
+        // Initialize Masonry
+        var gallery = document.querySelector('.gallery');
+        var masonry = new Masonry(gallery, {
+            itemSelector: '.gallery-item',
+            columnWidth: '.gallery-item',
+            gutter: 20,
+            fitWidth: true
+        });
+
+        // Re-layout Masonry after images load
+        imagesLoaded(gallery, function() {
+            masonry.layout();
+        });
+    </script>
+</body>
+</html>
