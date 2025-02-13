@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring 8S2 Initial Ideas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .gallery-item {
+            width: calc(33.333% - 20px); /* 3 columns by default */
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .image-caption {
+            margin-top: 8px;
+            text-align: center;
+            color: #666;
+        }
+
+        /* Lightbox Styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery-container">
+        <h1>2025 Feb 13th Spring 8S2 Initial Ideas</h1>
+        <div class="gallery" id="gallery">
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename0.jpg" alt="Initial Idea 0">
+                <div class="image-caption">Dina</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename1.jpg" alt="Initial Idea 1">
+                <div class="image-caption">Sonia</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename2.jpg" alt="Initial Idea 2">
+                <div class="image-caption">Alea</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename3.jpg" alt="Initial Idea 3">
+                <div class="image-caption">Artemis</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename4.jpg" alt="Initial Idea 4">
+                <div class="image-caption">Nareece</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename5.jpg" alt="Initial Idea 5">
+                <div class="image-caption">Eva</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename6.jpg" alt="Initial Idea 6">
+                <div class="image-caption">Jazmin</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename7.jpg" alt="Initial Idea 7">
+                <div class="image-caption">Sajid</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename8.jpg" alt="Initial Idea 8">
+                <div class="image-caption">Victoria</div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Lightbox Pop-up -->
+    <div class="lightbox" id="lightbox">
+        <span class="close-btn" id="close-btn">&times;</span>
+        <img id="lightbox-img" src="" alt="Zoomed Image">
+    </div>
+
+    <!-- Masonry Library -->
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <!-- imagesLoaded Library -->
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <script>
+        // Shuffle the gallery items
+        function shuffleGallery() {
+            var gallery = document.getElementById('gallery');
+            var items = gallery.children;
+            var itemsArray = Array.prototype.slice.call(items);
+
+            // Shuffle the array
+            for (var i = itemsArray.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                [itemsArray[i], itemsArray[j]] = [itemsArray[j], itemsArray[i]];
+            }
+
+            // Append the shuffled items back to the gallery
+            itemsArray.forEach(function(item) {
+                gallery.appendChild(item);
+            });
+        }
+
+        // Shuffle the gallery when the page loads
+        shuffleGallery();
+
+        // Initialize Masonry
+        var gallery = document.querySelector('.gallery');
+        var masonry = new Masonry(gallery, {
+            itemSelector: '.gallery-item',
+            columnWidth: '.gallery-item',
+            gutter: 20,
+            fitWidth: true
+        });
+
+        // Re-layout Masonry after images load
+        imagesLoaded(gallery, function() {
+            masonry.layout();
+        });
+
+        // Lightbox Functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = document.getElementById('close-btn');
+
+        // Open lightbox when an image is clicked
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            img.addEventListener('click', () => {
+                lightbox.classList.add('active');
+                lightboxImg.src = img.src;
+            });
+        });
+
+        // Close lightbox when close button is clicked
+        closeBtn.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        // Close lightbox when clicking outside the image
+        lightbox.addEventListener('click', (e) => {
+            if (e.target !== lightboxImg) {
+                lightbox.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
