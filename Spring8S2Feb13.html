@@ -99,43 +99,7 @@
     <div class="gallery-container">
         <h1>2025 Feb 13th Spring 8S2 Initial Ideas</h1>
         <div class="gallery" id="gallery">
-            <div class="gallery-item">
-                <img src="spring8S2initial/filename0.jpg" alt="Initial Idea 0">
-                <div class="image-caption">Dina</div>
-            </div>
-            <div class="gallery-item">
-                <img src="spring8S2initial/filename1.jpg" alt="Initial Idea 1">
-                <div class="image-caption">Sonia</div>
-            </div>
-            <div class="gallery-item">
-                <img src="spring8S2initial/filename2.jpg" alt="Initial Idea 2">
-                <div class="image-caption">Alea</div>
-            </div>
-            <div class="gallery-item">
-                <img src="spring8S2initial/filename3.jpg" alt="Initial Idea 3">
-                <div class="image-caption">Artemis</div>
-            </div>
-            <div class="gallery-item">
-                <img src="spring8S2initial/filename4.jpg" alt="Initial Idea 4">
-                <div class="image-caption">Nareece</div>
-            </div>
-            <div class="gallery-item">
-                <img src="spring8S2initial/filename5.jpg" alt="Initial Idea 5">
-                <div class="image-caption">Eva</div>
-            </div>
-            <div class="gallery-item">
-                <img src="spring8S2initial/filename6.jpg" alt="Initial Idea 6">
-                <div class="image-caption">Jazmin</div>
-            </div>
-            <div class="gallery-item">
-                <img src="spring8S2initial/filename7.jpg" alt="Initial Idea 7">
-                <div class="image-caption">Sajid</div>
-            </div>
-            <div class="gallery-item">
-                <img src="spring8S2initial/filename8.jpg" alt="Initial Idea 8">
-                <div class="image-caption">Victoria</div>
-            </div>
-
+            <!-- Gallery items will be dynamically generated here -->
         </div>
     </div>
     <!-- Lightbox Pop-up -->
@@ -149,6 +113,38 @@
     <!-- imagesLoaded Library -->
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <script>
+        // Function to generate gallery items dynamically
+        function generateGalleryItems() {
+            const gallery = document.getElementById('gallery');
+            const captions = [
+                "Dina", "Sonia", "Alea", "Artemis", "Nareece", "Eva", "Jazmin", "Sajid", "Victoria",
+                // Add more captions as needed up to 26
+                "Aid", "Aid", "Victoria", "Imaan", "Jazmin", "Summer",
+                "Sonia", "Sajid", "Pogba", "Lorena", "Lorena", "Nareece",
+                "Alea", "Alea", "Artemis", "Dinar", "Jannaten", "Eva"
+            ];
+
+            for (let i = 0; i <= 26; i++) {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+
+                const img = document.createElement('img');
+                img.src = `spring8S2initial/filename${i}.jpg`;
+                img.alt = `Initial Idea ${i}`;
+
+                const caption = document.createElement('div');
+                caption.className = 'image-caption';
+                caption.textContent = captions[i] || `Caption ${i}`; // Use default caption if not provided
+
+                galleryItem.appendChild(img);
+                galleryItem.appendChild(caption);
+                gallery.appendChild(galleryItem);
+            }
+        }
+
+        // Generate gallery items on page load
+        generateGalleryItems();
+
         // Shuffle the gallery items
         function shuffleGallery() {
             var gallery = document.getElementById('gallery');
