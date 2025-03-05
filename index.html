@@ -28,12 +28,12 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 600px;
+            max-width: 800px; /* Increased max-width for better spacing */
         }
 
         h1 {
             color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         p {
@@ -41,17 +41,23 @@
             margin-bottom: 30px;
         }
 
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /* Space between buttons */
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
         .btn {
             display: inline-block;
-            padding: 10px 10px;
+            padding: 10px 20px;
             color: white;
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s ease, transform 0.2s ease;
-            margin: 5px 0;
-            width: 100%;
-            max-width: 300px;
             text-align: center;
+            flex: 1 1 calc(50% - 10px); /* Two buttons per row with gap */
         }
 
         .btn:hover {
@@ -80,28 +86,32 @@
             }
 
             .btn {
-                width: 100%;
-                max-width: none;
+                flex: 1 1 100%; /* Full width on small screens */
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Welcome to Spring DT classes 2025</h2>
-        <a href="spring8S2.html" class="btn btn-year8">Spring 8S2 Festive themes</a>
-        <a href="Spring8S2Feb13.html" class="btn btn-year8">Spring 8S2 Initial Ideas</a>
-        <a href="8h2initial/8h2ideas.html" class="btn btn-year8">Spring 8H2 Initial Ideas</a>
-        <a href="8s5initial/8s5ideas.html" class="btn btn-year8">Spring 8S5 Initial Ideas</a>
+        <h1>Welcome to Spring DT classes 2025</h1>
         
-        <a href="9H2theme/9h2themes.html" class="btn btn-year9">Spring 9H2 Pop Art themes</a>
-        <a href="9S2theme/9s2theme.html" class="btn btn-year9">Spring 9S2 Pop Art Themes</a>
-        <a href="9S2initial/9s2ideas.html" class="btn btn-year9">Spring 9S2 Initial Ideas</a>
-        <a href="9s5initial/9s5ideas.html" class="btn btn-year9">Spring 9S5 Initial Ideas</a>
-        <a href="9h5initial/9h5ideas.html" class="btn btn-year9">Spring 9H5 Initial Ideas</a>
-        
-        <a href="9h2initial/9h2ideas.html" class="btn btn-year9">Spring 9H2 Initial Ideas</a>
+        <!-- Year 8 Buttons -->
+        <div class="btn-group">
+            <a href="spring8S2.html" class="btn btn-year8">Spring 8S2 Festive themes</a>
+            <a href="Spring8S2Feb13.html" class="btn btn-year8">Spring 8S2 Initial Ideas</a>
+            <a href="8h2initial/8h2ideas.html" class="btn btn-year8">Spring 8H2 Initial Ideas</a>
+            <a href="8s5initial/8s5ideas.html" class="btn btn-year8">Spring 8S5 Initial Ideas</a>
+        </div>
+
+        <!-- Year 9 Buttons -->
+        <div class="btn-group">
+            <a href="9H2theme/9h2themes.html" class="btn btn-year9">Spring 9H2 Pop Art themes</a>
+            <a href="9S2theme/9s2theme.html" class="btn btn-year9">Spring 9S2 Pop Art Themes</a>
+            <a href="9S2initial/9s2ideas.html" class="btn btn-year9">Spring 9S2 Initial Ideas</a>
+            <a href="9s5initial/9s5ideas.html" class="btn btn-year9">Spring 9S5 Initial Ideas</a>
+            <a href="9h5initial/9h5ideas.html" class="btn btn-year9">Spring 9H5 Initial Ideas</a>
+            <a href="9h2initial/9h2ideas.html" class="btn btn-year9">Spring 9H2 Initial Ideas</a>
+        </div>
     </div>
 </body>
 </html>
-  
