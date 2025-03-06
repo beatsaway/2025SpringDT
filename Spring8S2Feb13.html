@@ -26,6 +26,8 @@
             color: #333;
             text-align: center;
             margin-bottom: 30px;
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
         .gallery {
@@ -93,15 +95,141 @@
             font-size: 30px;
             cursor: pointer;
         }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 768px) {
+            .gallery-item {
+                width: calc(50% - 20px); /* 2 columns on medium screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-item {
+                width: 100%; /* 1 column on small screens */
+            }
+        }
     </style>
 </head>
 <body>
     <div class="gallery-container">
         <h1>2025 Spring 8S2 Initial Ideas</h1>
         <div class="gallery" id="gallery">
-            <!-- Gallery items will be dynamically generated here -->
+            <!-- Static gallery items -->
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename0.jpg" alt="Initial Idea 0">
+                <div class="image-caption">Dina</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename1.jpg" alt="Initial Idea 1">
+                <div class="image-caption">Sonia</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename2.jpg" alt="Initial Idea 2">
+                <div class="image-caption">Alea</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename3.jpg" alt="Initial Idea 3">
+                <div class="image-caption">Artemis</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename4.jpg" alt="Initial Idea 4">
+                <div class="image-caption">Nareece</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename5.jpg" alt="Initial Idea 5">
+                <div class="image-caption">Eva</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename6.jpg" alt="Initial Idea 6">
+                <div class="image-caption">Jazmin</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename7.jpg" alt="Initial Idea 7">
+                <div class="image-caption">Sajid</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename8.jpg" alt="Initial Idea 8">
+                <div class="image-caption">Victoria</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename9.jpg" alt="Initial Idea 9">
+                <div class="image-caption">Aid</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename10.jpg" alt="Initial Idea 10">
+                <div class="image-caption">Aid</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename11.jpg" alt="Initial Idea 11">
+                <div class="image-caption">Victoria</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename12.jpg" alt="Initial Idea 12">
+                <div class="image-caption">Imaan</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename13.jpg" alt="Initial Idea 13">
+                <div class="image-caption">Jazmin</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename14.jpg" alt="Initial Idea 14">
+                <div class="image-caption">Summer</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename15.jpg" alt="Initial Idea 15">
+                <div class="image-caption">Sonia</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename16.jpg" alt="Initial Idea 16">
+                <div class="image-caption">Sajid</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename17.jpg" alt="Initial Idea 17">
+                <div class="image-caption">Pogba</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename18.jpg" alt="Initial Idea 18">
+                <div class="image-caption">Lorena</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename19.jpg" alt="Initial Idea 19">
+                <div class="image-caption">Lorena</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename20.jpg" alt="Initial Idea 20">
+                <div class="image-caption">Nareece</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename21.jpg" alt="Initial Idea 21">
+                <div class="image-caption">Alea</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename22.jpg" alt="Initial Idea 22">
+                <div class="image-caption">Alea</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename23.jpg" alt="Initial Idea 23">
+                <div class="image-caption">Artemis</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename24.jpg" alt="Initial Idea 24">
+                <div class="image-caption">Dinar</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename25.jpg" alt="Initial Idea 25">
+                <div class="image-caption">Jannaten</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename26.jpg" alt="Initial Idea 26">
+                <div class="image-caption">Eva</div>
+            </div>
+            <div class="gallery-item">
+                <img src="spring8S2initial/filename27.jpg" alt="Initial Idea 27">
+                <div class="image-caption">Lorena</div>
+            </div>
         </div>
     </div>
+
     <!-- Lightbox Pop-up -->
     <div class="lightbox" id="lightbox">
         <span class="close-btn" id="close-btn">&times;</span>
@@ -113,38 +241,6 @@
     <!-- imagesLoaded Library -->
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <script>
-        // Function to generate gallery items dynamically
-        function generateGalleryItems() {
-            const gallery = document.getElementById('gallery');
-            const captions = [
-                "Dina", "Sonia", "Alea", "Artemis", "Nareece", "Eva", "Jazmin", "Sajid", "Victoria",
-                // Add more captions as needed up to 26
-                "Aid", "Aid", "Victoria", "Imaan", "Jazmin", "Summer",
-                "Sonia", "Sajid", "Pogba", "Lorena", "Lorena", "Nareece",
-                "Alea", "Alea", "Artemis", "Dinar", "Jannaten", "Eva","Lorena"
-            ];
-
-            for (let i = 0; i <= 26; i++) {
-                const galleryItem = document.createElement('div');
-                galleryItem.className = 'gallery-item';
-
-                const img = document.createElement('img');
-                img.src = `spring8S2initial/filename${i}.jpg`;
-                img.alt = `Initial Idea ${i}`;
-
-                const caption = document.createElement('div');
-                caption.className = 'image-caption';
-                caption.textContent = captions[i] || `Caption ${i}`; // Use default caption if not provided
-
-                galleryItem.appendChild(img);
-                galleryItem.appendChild(caption);
-                gallery.appendChild(galleryItem);
-            }
-        }
-
-        // Generate gallery items on page load
-        generateGalleryItems();
-
         // Shuffle the gallery items
         function shuffleGallery() {
             var gallery = document.getElementById('gallery');
