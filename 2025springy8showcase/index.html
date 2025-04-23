@@ -841,60 +841,72 @@
     });
 
     // Generate artworks
-    function generateArtworks(data) {
+    async function loadImagesSequentially(students) {
+      for (let index = 0; index < students.length; index++) {
+        const student = students[index];
+        const artworkElement = document.createElement('div');
+        artworkElement.className = 'artwork scroll-reveal';
+        artworkElement.style.transitionDelay = `${index * 0.05}s`;
+
+        // Add click event to open modal
+        artworkElement.addEventListener('click', () => showModal(index));
+
+        if (student.photo === 'yes') {
+          const artworkImage = new Image();
+          artworkImage.className = 'artwork-image';
+          artworkImage.src = `img/${student.name.toLowerCase()}.jpg`;
+          artworkImage.alt = `${student.name}'s artwork`;
+
+          // Wait for the image to load before appending
+          await new Promise((resolve) => {
+            artworkImage.onload = resolve;
+            artworkImage.onerror = resolve; // continue even if error
+          });
+
+          artworkElement.appendChild(artworkImage);
+        } else {
+          const placeholder = document.createElement('div');
+          placeholder.className = 'artwork-placeholder';
+          artworkElement.appendChild(placeholder);
+        }
+
+        const artworkInfo = document.createElement('div');
+        artworkInfo.className = 'artwork-info';
+
+        const formattedName = student.name.charAt(0).toUpperCase() + student.name.slice(1);
+        const formattedClass = student.class.toUpperCase();
+
+        const artworkName = document.createElement('div');
+        artworkName.className = 'artwork-name';
+        artworkName.textContent = `${formattedClass} ${formattedName}`;
+
+        const artworkDetails = document.createElement('div');
+        artworkDetails.className = 'artwork-details';
+        artworkDetails.textContent = student.festival;
+
+        artworkInfo.appendChild(artworkName);
+        artworkInfo.appendChild(artworkDetails);
+
+        artworkElement.appendChild(artworkInfo);
+        artworksGrid.appendChild(artworkElement);
+
+        // Add staggered delay for each image's appearance
+        setTimeout(() => {
+          requestAnimationFrame(() => {
+            artworkElement.classList.add('active');
+          });
+        }, index * 100); // 100ms delay between each image
+      }
+    }
+
+    async function generateArtworks(data) {
       currentFilteredStudents = data;
       const loading = showLoading();
-      
-      setTimeout(() => {
+
+      setTimeout(async () => {
         artworksGrid.innerHTML = '';
-        
-        data.forEach((student, index) => {
-          const artworkElement = document.createElement('div');
-          artworkElement.className = 'artwork scroll-reveal';
-          artworkElement.style.transitionDelay = `${index * 0.05}s`;
-          
-          // Add click event to open modal
-          artworkElement.addEventListener('click', () => showModal(index));
-          
-          if (student.photo === 'yes') {
-            const artworkImage = document.createElement('img');
-            artworkImage.className = 'artwork-image';
-            artworkImage.src = `img/${student.name.toLowerCase()}.jpg`;
-            artworkImage.alt = `${student.name}'s artwork`;
-            artworkElement.appendChild(artworkImage);
-          } else {
-            const placeholder = document.createElement('div');
-            placeholder.className = 'artwork-placeholder';
-            artworkElement.appendChild(placeholder);
-          }
-          
-          const artworkInfo = document.createElement('div');
-          artworkInfo.className = 'artwork-info';
-          
-          const formattedName = student.name.charAt(0).toUpperCase() + student.name.slice(1);
-          const formattedClass = student.class.toUpperCase();
-          
-          const artworkName = document.createElement('div');
-          artworkName.className = 'artwork-name';
-          artworkName.textContent = `${formattedClass} ${formattedName}`;
-          
-          const artworkDetails = document.createElement('div');
-          artworkDetails.className = 'artwork-details';
-          artworkDetails.textContent = student.festival;
-          
-          artworkInfo.appendChild(artworkName);
-          artworkInfo.appendChild(artworkDetails);
-          
-          artworkElement.appendChild(artworkInfo);
-          artworksGrid.appendChild(artworkElement);
-        });
-        
-        setTimeout(() => {
-          document.querySelectorAll('.scroll-reveal').forEach(item => {
-            item.classList.add('active');
-          });
-          hideLoading(loading);
-        }, 100);
+        await loadImagesSequentially(data);
+        hideLoading(loading);
       }, 300);
     }
 
