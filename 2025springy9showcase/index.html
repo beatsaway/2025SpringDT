@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2025 Spring Term - Year 9 Pop Art Clocks Showcase</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f8f8f8;
+      color: #333;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      width: 95%;
+      max-width: 95vw;
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      padding: 6px 16px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      gap: 16px;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #333;
+      letter-spacing: -0.5px;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+      background: #ffffff;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .filter-section {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-group {
+      position: relative;
+      min-width: 150px;
+      flex: 1;
+    }
+
+    .filter-select {
+      width: 100%;
+      padding: 8px 12px;
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      color: #333;
+      font-size: 0.9rem;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .search-bar {
+      position: relative;
+      flex: 1;
+      max-width: 500px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      background: #ffffff;
+      color: #333;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .artworks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+      position: relative;
+      min-height: 200px;
+    }
+
+    .artwork {
+      position: relative;
+      cursor: pointer;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      aspect-ratio: 1/1;
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .artwork-placeholder {
+      width: 100%;
+      height: 100%;
+      background-image: url('img/placeholdergrey.gif');
+      background-size: cover;
+      background-position: center;
+      aspect-ratio: 1/1;
+    }
+
+    .artwork:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .artwork-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .artwork:hover .artwork-image {
+      transform: scale(1.1);
+    }
+
+    .artwork-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+    }
+
+    .artwork-name {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #ffffff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .artwork-details {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Modal Styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                 visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    .modal-overlay.closing {
+      opacity: 0;
+    }
+
+    .modal-overlay.closing .modal-content {
+      transform: translateY(20px) scale(0.95);
+      opacity: 0;
+    }
+
+    .modal-content {
+      position: relative;
+      min-width: 90vw;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transform: translateY(20px) scale(0.95);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                 opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: default;
+    }
+
+    .modal-image {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid #e0e0e0;
+      border-radius: 50%;
+      color: #333;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.66);
+      color: #333;
+      padding: 20px;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-name {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .modal-details {
+      font-size: 1.2rem;
+      color: #666;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 40px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>2025 Spring Term - Year 9 Pop Art Clocks Showcase</h1>
+      <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search by name or class...">
+      </div>
+    </header>
+
+    <div class="controls">
+      <div class="filter-section">
+        <div class="filter-group">
+          <select class="filter-select" id="classFilter">
+            <option value="">All Classes</option>
+            <option value="9H5">9H5</option>
+            <option value="9S2">9S2</option>
+            <option value="9S5">9S5</option>
+            <option value="9H2">9H2</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="artworks-grid" id="artworksGrid">
+      <!-- Artworks will be generated via JS -->
+    </div>
+
+    <!-- Modal for enlarged image view -->
+    <div class="modal-overlay" id="modal">
+      <div class="modal-content">
+        <img class="modal-image" src="" alt="">
+        <div class="modal-info">
+          <div class="modal-name"></div>
+          <div class="modal-details"></div>
+        </div>
+        <button class="modal-close">×</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <a href='https://www.youtube.com/@tortorkeneducation' class="nodeco">
+      🐢 Tortorken Education ©2025
+    </a>
+  </footer>
+
+  <script src="y9spring_data.js"></script>
+  <script>
+    const artworksGrid = document.getElementById('artworksGrid');
+    const searchInput = document.querySelector('.search-input');
+    const modal = document.getElementById('modal');
+    let currentFilteredStudents = [];
+
+    // Show modal with enlarged image
+    function showModal(index) {
+      const student = currentFilteredStudents[index];
+      const modalImage = modal.querySelector('.modal-image');
+      const modalName = modal.querySelector('.modal-name');
+      const modalDetails = modal.querySelector('.modal-details');
+      
+      if (student.photo === 'yes') {
+        modalImage.src = `img/${student.name.toLowerCase()}.jpg`;
+        modalImage.alt = `${student.name}'s artwork`;
+        modalImage.style.display = 'block';
+      } else {
+        modalImage.style.display = 'none';
+      }
+      
+      const formattedName = student.name.charAt(0).toUpperCase() + student.name.slice(1);
+      const formattedClass = student.class.toUpperCase();
+      
+      modalName.textContent = `${formattedClass} ${formattedName}`;
+      modalDetails.textContent = '';
+      
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideModal() {
+      modal.classList.add('closing');
+      setTimeout(() => {
+        modal.classList.remove('active', 'closing');
+        document.body.style.overflow = '';
+      }, 300);
+    }
+
+    // Add click outside to close functionality
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal || e.target === modal.querySelector('.modal-close')) {
+        hideModal();
+      }
+    });
+
+    // Generate artworks
+    async function loadImagesSequentially(students) {
+      for (let index = 0; index < students.length; index++) {
+        const student = students[index];
+        const artworkElement = document.createElement('div');
+        artworkElement.className = 'artwork';
+        artworkElement.style.transitionDelay = `${index * 0.05}s`;
+
+        artworkElement.addEventListener('click', () => showModal(index));
+
+        if (student.photo === 'yes') {
+          const artworkImage = new Image();
+          artworkImage.className = 'artwork-image';
+          artworkImage.src = `img/${student.name.toLowerCase()}.jpg`;
+          artworkImage.alt = `${student.name}'s artwork`;
+
+          await new Promise((resolve) => {
+            artworkImage.onload = resolve;
+            artworkImage.onerror = resolve;
+          });
+
+          artworkElement.appendChild(artworkImage);
+        } else {
+          const placeholder = document.createElement('div');
+          placeholder.className = 'artwork-placeholder';
+          artworkElement.appendChild(placeholder);
+        }
+
+        const artworkInfo = document.createElement('div');
+        artworkInfo.className = 'artwork-info';
+
+        const formattedName = student.name.charAt(0).toUpperCase() + student.name.slice(1);
+        const formattedClass = student.class.toUpperCase();
+
+        const artworkName = document.createElement('div');
+        artworkName.className = 'artwork-name';
+        artworkName.textContent = `${formattedClass} ${formattedName}`;
+
+        artworkInfo.appendChild(artworkName);
+        artworkElement.appendChild(artworkInfo);
+        artworksGrid.appendChild(artworkElement);
+      }
+    }
+
+    async function generateArtworks(data) {
+      currentFilteredStudents = data;
+      artworksGrid.innerHTML = '';
+      await loadImagesSequentially(data);
+    }
+
+    // Filter functionality
+    function filterStudents() {
+      const classFilter = document.getElementById('classFilter').value;
+      const searchTerm = searchInput.value.toLowerCase();
+      
+      let filteredStudents = students.filter(student => {
+        const matchesClass = !classFilter || student.class === classFilter;
+        const matchesSearch = !searchTerm || 
+          student.name.toLowerCase().includes(searchTerm) ||
+          student.class.toLowerCase().includes(searchTerm);
+        
+        return matchesClass && matchesSearch;
+      });
+      
+      generateArtworks(filteredStudents);
+    }
+
+    // Add event listeners for all filters
+    document.getElementById('classFilter').addEventListener('change', filterStudents);
+    searchInput.addEventListener('input', filterStudents);
+
+    // Initialize
+    generateArtworks(students);
+  </script>
+</body>
+</html> 
